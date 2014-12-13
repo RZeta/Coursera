@@ -1,0 +1,112 @@
+           
+           int v1=0,v2=0,v3=0;
+           while(v1==v2||v2==v3||v3==v1){
+           v1= (int)(Math.random()*N);
+            v2=(int)(Math.random()*N); 
+               v3=(int)(Math.random()*N); 
+               }
+              
+           int i1=Tour.indexOf(v1);
+           int i2=Tour.indexOf(v2);
+           int i3=Tour.indexOf(v3);
+              // System.out.println(i1+" i1i2 "+i2+" "+i3);
+          if(i1<i2)
+          {
+        TourI= new ArrayList<Integer>(swap(i1,i2,Tour));
+          }
+         else
+          {
+                  TourI= new ArrayList<Integer>(swap(i2,i1,Tour));
+          }
+                  //System.out.println("TourI"+"\n");
+               for(int o=0;o<N;o++)
+                //   System.out.print(TourI.get(o)+" ");
+              // System.out.println("objF"+"\n"+objF);
+                i1=TourI.indexOf(v1);
+                i2=TourI.indexOf(v2);
+                i3=TourI.indexOf(v3);
+           objF=0.0;
+           
+           if(i2<i3)
+           {
+               TourI23=new ArrayList<Integer>(swap(i2,i3,TourI));
+               objF2=objF;
+            //       System.out.println("objF2"+"\n"+objF2);
+               }
+           else
+           {
+                   TourI23=new ArrayList<Integer>(swap(i3,i2,TourI));
+                   objF2=objF;
+          // System.out.println("objF2"+"\n"+objF2); 
+          }
+           
+           objF=0.0;
+               if(i1<i3)
+               {
+                   TourI13=new ArrayList<Integer>(swap(i1,i3,TourI));
+                   objF1=objF;
+                   
+                //   System.out.println("objF1"+"\n"+objF1);
+                 }
+               else
+               {
+                       TourI13=new ArrayList<Integer>(swap(i3,i1,TourI));
+                       objF1=objF;
+                   
+              //     System.out.println("objF1"+"\n"+objF1);
+              }
+               
+           if(objF1<objF2)
+           {//System.out.println("objF1<objF2");   
+           if(objFin>objF1)
+         {//System.out.println("objF1<objFin");
+                Tour= new ArrayList<Integer>(TourI13);  
+          //   cT=Temp;
+         objFin=objF1;   
+         }
+           else
+         {//System.out.println("objFin>objF1");
+             double prob=Math.exp(-1*(objF1-objFin)/Temp);
+                 if(Math.random()<=prob)
+                 {       
+                        
+                     Tour= new ArrayList<Integer>(TourI13);               
+                        objFin=objF1;                        
+                     }             
+             }}
+           else
+           {//System.out.println("objF1>objF2");
+                   if(objFin>objF2)
+                   {//System.out.println("objF2<objFin");
+                 
+                        Tour= new ArrayList<Integer>(TourI23);  
+                   //   cT=Temp;
+                   objFin=objF2;
+                   }
+                   else
+                   {//System.out.println("objFin<objF2");
+                     double prob=Math.exp(-1*(objF2-objFin)/Temp);
+                         if(Math.random()<=prob)
+                         {            cT=Temp;
+                             Tour= new ArrayList<Integer>(TourI23);               
+                                objFin=objF2;                        
+                             }             
+                     } 
+               
+               }
+           
+               TourI.removeAll(TourI);             
+               objF=0.0;
+           if(Temp>30)
+               rate=0.01f;
+                
+           else
+               rate =0.00001f;
+      /*     if(Temp<15 &&c==true)
+           {
+               Temp += 10;
+               c=false;
+               } */
+           
+               Temp=Temp-rate;      
+          
